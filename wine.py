@@ -115,3 +115,6 @@ rj.ax_joint.set_xticks(list(range(3,9)))
 fig = rj.fig
 fig.subplots_adjust(top=0.9)
 t = fig.suptitle('Red Wine Sulphates - Quality', fontsize=12)
+
+plt.show()
+
