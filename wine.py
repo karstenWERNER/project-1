@@ -8,7 +8,8 @@ from sklearn.model_selection import train_test_split
 from collections import Counter
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
-
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
 from scipy import stats
 
 red_wine = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv', sep = ';')
@@ -51,6 +52,18 @@ wtp_ss = StandardScaler().fit(wtp_train_X)
 wtp_train_SX = wtp_ss.transform(wtp_train_X)
 # Scale the test set
 wtp_test_SX = wtp_ss.transform(wtp_test_X)
+
+wtp_lr = LogisticRegression()
+wtp_lr.fit(wtp_train_SX, wtp_train_y)
+
+LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+intercept_scaling=1, max_iter=100, multi_class='ovr', n_jobs=1,
+penalty='l2', random_state=None, solver='liblinear', tol=0.0001,
+verbose=0, warm_start=False)
+
+wtp_lr_predictions = wtp_lr.predict(wtp_test_SX)
+
+print(classification_report(wtp_test_y,wtp_lr_predictions, target_names=['red', 'white']))
 #f, ax = plt.subplots(1, 2, figsize=(10, 4))
 #sns.set_theme(style="ticks", palette="pastel")
 #f.suptitle('Wine Quality - Alcohol Content/ Sulphates', fontsize=14)
